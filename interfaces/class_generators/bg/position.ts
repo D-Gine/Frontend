@@ -1,4 +1,4 @@
-import { PositionType } from "@/interfaces/types/position_types";
+import { PositionType } from "@types/position_types";
 
 export const bg_position_classes: Record<PositionType, string> = {
   center: "bg-center",

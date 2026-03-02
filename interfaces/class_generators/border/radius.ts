@@ -1,4 +1,4 @@
-import { SizeType } from "../types/size_types";
+import { SizeType } from "@types/size_types";
 
 export const border_radius_classes: Record<SizeType, string> = {
   bigger: "rounded-2xl",

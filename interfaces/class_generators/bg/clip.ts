@@ -1,4 +1,4 @@
-import { BgClipType } from "../../types/bg_types";
+import { BgClipType } from "@types/bg_types";
 
 export const bg_clip_classes: Record<BgClipType, string> = {
   border: "bg-clip-border",

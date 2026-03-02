@@ -5,9 +5,9 @@ import { SizeType } from "./types/size_types";
 export const text_style = cva("", {
   variants: {
     text_color: {
-      [ColorType.primary]: "text-text-primary",
-      [ColorType.secondary]: "text-text-secondary",
-      [ColorType.contrast]: "text-text-contrast",
+      primary: "text-text-primary",
+      secondary: "text-text-secondary",
+      contrast: "text-text-contrast",
     },
     text_size: {
       bigger: "text-2xl",
@@ -19,7 +19,7 @@ export const text_style = cva("", {
     },
   },
   defaultVariants: {
-    text_color: ColorType.primary,
+    text_color: "primary",
     text_size: "medium",
   },
 });

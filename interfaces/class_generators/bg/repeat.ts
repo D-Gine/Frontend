@@ -1,4 +1,4 @@
-import { BgRepeatType } from "../../types/bg_types";
+import { BgRepeatType } from "@types/bg_types";
 
 export const bg_repeat_classes: Record<BgRepeatType, string> = {
   repeat: "bg-repeat",

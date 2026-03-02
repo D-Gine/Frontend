@@ -22,6 +22,7 @@
       "@/*": ["./*"],
       "@interfaces/*": ["./interfaces/*"],
       "@components/*": ["./components/*"],
+      "@types/*": ["./interfaces/types/*"],
     },
   },
   "include": [
