@@ -1,5 +1,5 @@
 export type PositionType =
-  | "top_left"
+  | "top-left"
   | "top"
   | "top-right"
   | "left"

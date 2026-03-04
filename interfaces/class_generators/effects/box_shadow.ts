@@ -1,4 +1,4 @@
-import { SizeType } from "../types/size_types";
+import { SizeType } from "@types/size_types";
 
 export const box_shadow_classes: Record<SizeType, string> = {
   bigger: "shadow-2xl",

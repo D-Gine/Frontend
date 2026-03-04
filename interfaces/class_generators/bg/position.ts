@@ -9,5 +9,5 @@ export const bg_position_classes: Record<PositionType, string> = {
   bottom: "bg-bottom",
   "bottom-left": "bg-bottom-left",
   left: "bg-left",
-  top_left: "bg-top-left",
+  "top-left": "bg-top-left",
 };
