@@ -1,0 +1,10 @@
+export type TypoStretch =
+    | "stretch-ultra-condensed"
+    | "stretch-extra-condensed"
+    | "stretch-condensed"
+    | "stretch-semi-condensed"
+    | "stretch-normal"
+    | "stretch-semi-expanded"
+    | "stretch-expanded"
+    | "stretch-extra-expanded"
+    | "stretch-ultra-expanded"
