@@ -1,4 +1,7 @@
 @import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
     --primary: 255 255 255;
@@ -14,12 +17,7 @@
 
 @font-face {
     font-family: "Primary";
-    src: url("assets/fonts/primary.otf"), format("opentype");
-}
-
-@font-face {
-    font-family: "Secondary";
-    src: url("assets/fonts/secondary.ttf"), format("truetype");
+    src: url("../public/assets/fonts/primary.otf"), format("opentype");
 }
 
 @theme {
@@ -33,5 +31,4 @@
     --color-secondary: rgb(var(--secondary));
     --color-contrast: rgb(var(--contrast));
     --font-primary: "Primary", sans-serif;
-    --font-secondary : "Secondary", sans-serif;
 }

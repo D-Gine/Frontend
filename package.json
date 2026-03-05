@@ -10,6 +10,9 @@
     "test-accessibility": "jest"
   },
   "dependencies": {
+    "@heroui/navbar": "^2.2.29",
+    "@material-tailwind/react": "^2.1.10",
+    "lucide-react": "^0.577.0",
     "next": "16.1.6",
     "react": "19.2.3",
     "react-dom": "19.2.3"
