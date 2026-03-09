@@ -14,12 +14,12 @@
 
 @font-face {
     font-family: "Primary";
-    src: url("assets/fonts/primary.otf"), format("opentype");
+    src: url("/fonts/primary.otf") format("opentype");
 }
 
 @font-face {
     font-family: "Secondary";
-    src: url("assets/fonts/secondary.ttf"), format("truetype");
+    src: url("/fonts/secondary.ttf") format("truetype");
 }
 
 @theme {
@@ -33,5 +33,5 @@
     --color-secondary: rgb(var(--secondary));
     --color-contrast: rgb(var(--contrast));
     --font-primary: "Primary", sans-serif;
-    --font-secondary : "Secondary", sans-serif;
+    --font-secondary: "Secondary", sans-serif;
 }

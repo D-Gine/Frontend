@@ -1,0 +1,23 @@
+services:
+  dengine-frontend:
+    container_name: dengine-frontend-${VERSION}
+    build: ./
+    env_file: ".env"
+    ports:
+      - "${PORT}:${PORT}" # je suis obligé le changement du port next il est sur la variable PORT
+    networks:
+      - front
+    volumes:
+      - ./:/app
+      - /app/node_modules
+      - /app/.next
+    #   - front:/var/www/dengine-frontend-${VERSION}/
+
+# volumes:
+#   front:
+#     name: ${FRONT_VOLUME}
+
+networks:
+  front:
+    external: true
+    name: ${FRONT_NETWORK}

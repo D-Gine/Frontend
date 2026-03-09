@@ -102,7 +102,12 @@ export default function CharacterCreation() {
       <ul className="flex flex-col w-1/10 bg-amber-100 p-2">
         {currentPath.map((v) => (
           <li key={`path_${v}`}>
-            <button onClick={() => setCurrentNode(v)}>{v}</button>
+            <button
+              className={`${v === currentNode ? "font-bold" : ""}`}
+              onClick={() => setCurrentNode(v)}
+            >
+              {v}
+            </button>
           </li>
         ))}
       </ul>
