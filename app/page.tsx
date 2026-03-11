@@ -4,25 +4,27 @@ import { Button } from "@material-tailwind/react";
 
 export default function Home() {
   return (
-    <div style={{}} className="bg-red-300 text-gray-900">
+    <div style={{}} className="bg-red-800 text-gray-900">
       {/* HERO */}
       <section className="relative h-[90vh] flex items-center justify-center text-center px-6">
-        <div className="absolute inset-0 bg-gradient-to-b from-brandDark/90 to-brandRed/90 z-0" />
-        
-        <div className="relative z-10 text-white max-w-3xl">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white">
-            Jouer à Dungeons & Dragons en ligne gratuitement
+        <div className="absolute inset-0 bg-linear-to-b from-brandDark/90 to-brandRed/90 z-0" />
+
+        <div className="flex flex-col gap-5 items-center z-10 text-white max-w-2/3">
+          <h1 className="text-4xl md:text-8xl font-bold mb-6 text-white">
+            Jouer à des jeux de rôle en ligne gratuitement
           </h1>
-          <p className="text-lg md:text-xl mb-8 text-white">
+          <p className="text-lg md:text-5xl mb-8 text-white">
             Lance les dés. Invoque les dragons. Écris ta légende.
           </p>
-          <Button className="bg-brandOrange hover:bg-orange-500 transition transform hover:scale-105 px-8 py-4 rounded-lg font-semibold text-lg shadow-lg" 
-                  onClick={() => console.log("clicked")}
-                  placeholder=""
-                  onPointerEnterCapture={() => {}}
-                  onPointerLeaveCapture={() => {}}
-                  onResize={() => {}}
-                  onResizeCapture={() => {}}>
+          <Button
+            className="bg-red-700 hover:bg-red-900 transition transform hover:scale-105 px-8 py-4 rounded-lg font-semibold text-lg shadow-xl"
+            onClick={() => console.log("clicked")}
+            placeholder=""
+            onPointerEnterCapture={() => {}} // le b a le c
+            onPointerLeaveCapture={() => {}}
+            onResize={() => {}}
+            onResizeCapture={() => {}}
+          >
             Commencer gratuitement
           </Button>
         </div>
@@ -39,27 +41,17 @@ export default function Home() {
             <h3 className="text-xl font-semibold mb-4">
               Lancers de dés en temps réel
             </h3>
-            <p>
-              Animations dynamiques et résultats instantanés.
-            </p>
+            <p>Animations dynamiques et résultats instantanés.</p>
           </div>
 
           <div className="bg-white w-72 p-8 rounded-2xl shadow-xl hover:-translate-y-2 transition">
-            <h3 className="text-xl font-semibold mb-4">
-              Cartes interactives
-            </h3>
-            <p>
-              Fog of war, tokens et gestion fluide des combats.
-            </p>
+            <h3 className="text-xl font-semibold mb-4">Cartes interactives</h3>
+            <p>Fog of war, tokens et gestion fluide des combats.</p>
           </div>
 
           <div className="bg-white w-72 p-8 rounded-2xl shadow-xl hover:-translate-y-2 transition">
-            <h3 className="text-xl font-semibold mb-4">
-              Parties instantanées
-            </h3>
-            <p>
-              Rejoins ou crée une table en quelques secondes.
-            </p>
+            <h3 className="text-xl font-semibold mb-4">Parties instantanées</h3>
+            <p>Rejoins ou crée une table en quelques secondes.</p>
           </div>
         </div>
       </section>

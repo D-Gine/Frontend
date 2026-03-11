@@ -191,7 +191,7 @@ export default function Campaign() {
         </div>
 
         {/* ── Content ── */}
-        <div className="relative z-10 mx-auto max-w-[1200px] px-6 pb-20 pt-10">
+        <div className="relative z-10 mx-auto max-w-8/10 px-6 pb-20 pt-10">
           {/* Header */}
           <div className="animate-fadein mb-12 text-center">
             {/* Ornament row */}
