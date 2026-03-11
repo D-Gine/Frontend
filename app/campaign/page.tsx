@@ -233,7 +233,7 @@ export default function Campaign() {
                 setSearchQuery={setSearchQuery}
               />
             </div>
-            <ButtonCreate textInput="New Campaign" />
+            <ButtonCreate textInput="New Campaign" url={`ee`} />
           </div>
 
           {/* Filter tabs */}
