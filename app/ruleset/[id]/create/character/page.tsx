@@ -2,6 +2,9 @@
 import { type } from "@/components/TypedSetters/typed_setter.type";
 import { TypeComponents } from "@/components/TypedSetters/utils";
 import React, { useEffect, useState } from "react";
+import { node, nodeList } from "./node_type";
+import { submitCharacter } from "./submit";
+import { getNextNode } from "./get_next_node";
 
 //const type = ["number", "string", "list", "tag"];
 
@@ -12,17 +15,7 @@ export default function CharacterCreation({
 }) {
   const { id } = React.use(params);
 
-  const [nodes, setNodes] = useState<{
-    [node_id: string]: {
-      comp_id: string;
-      name: string;
-      last: boolean;
-      next: string | null;
-      // eslint-disable-next-line
-      comp: { [key: string]: any };
-      component_types: type[];
-    };
-  }>({});
+  const [nodes, setNodes] = useState<nodeList>({});
   const [name, setName] = useState<string>("");
   const [currentNode, setCurrentNode] = useState<string | undefined>(undefined);
   const [currentPath, setCurrentPath] = useState<string[]>([]);
@@ -36,7 +29,6 @@ export default function CharacterCreation({
         alert("failed to fetch next"); // switch to good thing
       }
       data.json().then((res) => {
-        console.log(res);
         setNodes({
           [res.node_id]: {
             comp_id: res.component_id,
@@ -53,19 +45,19 @@ export default function CharacterCreation({
     });
   }, [id]);
 
-  currentNode && console.log(nodes[currentNode].last);
-
   return (
     <div className="flex flex-col items-center w-full gap-5 p-8">
-      <input
-        className="text-4xl"
-        placeholder="Enter character name"
-        onChange={(e) => {
-          setName(e.target.value);
-        }}
-      />
-      <div className="flex flex-row gap-1 justify-center w-1/2">
-        <ul className="flex flex-col w-1/5 bg-amber-100 p-2">
+      <div className="flex flex-col p-5 w-full border-b-2 border-black/40 bord">
+        <input
+          className="text-4xl flex self-center"
+          placeholder="Enter character name"
+          onChange={(e) => {
+            setName(e.target.value);
+          }}
+        />
+      </div>
+      <div className="flex flex-row gap-1 justify-center w-9/10">
+        <ul className="flex flex-col w-1/5 bg-gray-50 p-8 border-r-2 border-black/50">
           {currentPath.map((v, i) => (
             <li key={`path_${v}_${i}`}>
               <button
@@ -77,95 +69,58 @@ export default function CharacterCreation({
             </li>
           ))}
         </ul>
-        {(currentNode && nodes[currentNode] && (
-          <ul className="flex flex-col w-4/5 justify-self-center gap-4 bg-amber-200 p-2">
-            {nodes[currentNode].component_types &&
-              nodes[currentNode].component_types.map((v, i) => (
-                <li key={`${currentNode}-data-select-${i}-${v.name}`}>
-                  {(() => {
-                    const Component = TypeComponents[v.type];
-                    return (
-                      <Component
-                        component={nodes[currentNode].comp}
-                        setter={(comp) => {
-                          setNodes({
-                            ...nodes,
-                            [currentNode]: { ...nodes[currentNode], comp },
-                          });
-                        }}
-                        type_interface={v}
-                      />
-                    );
-                  })()}
-                </li>
-              ))}
-            <li>
-              {!nodes[currentNode].last ? (
-                <button
-                  onClick={() => {
-                    if (nodes[currentNode].next == null) {
-                      fetch("/api/ruleset/next_node", {
-                        method: "POST",
-                        body: JSON.stringify({
-                          node_id: currentNode,
-                          type: "type ?",
-                          value: JSON.stringify(nodes[currentNode].comp),
-                        }),
-                      }).then((data) =>
-                        data.json().then((res) => {
-                          console.log("RES", res);
-                          setNodes({
-                            ...nodes,
-                            [currentNode]: {
-                              ...nodes[currentNode],
-                              next: res.node_id,
-                            },
-                            [res.node_id]: {
-                              name: res.name,
-                              last: res.last,
-                              comp: {},
-                              component_types: res.component_types,
-                            },
-                          });
-                          setCurrentPath([...currentPath, res.node_id]);
-                          setCurrentNode(res.node_id);
-                        }),
+        <div className="w-2/3 p-2 bg-gray-100">
+          {(currentNode && nodes[currentNode] && (
+            <ul className="flex flex-col w-4/5 justify-self-center gap-10">
+              {nodes[currentNode].component_types &&
+                nodes[currentNode].component_types.map((v, i) => (
+                  <li key={`${currentNode}-data-select-${i}-${v.name}`}>
+                    {(() => {
+                      const Component = TypeComponents[v.type];
+                      return (
+                        <Component
+                          component={nodes[currentNode].comp}
+                          setter={(comp) => {
+                            setNodes({
+                              ...nodes,
+                              [currentNode]: { ...nodes[currentNode], comp },
+                            });
+                          }}
+                          type_interface={v}
+                        />
                       );
+                    })()}
+                  </li>
+                ))}
+              <li>
+                {!nodes[currentNode].last ? (
+                  <button
+                    onClick={() => {
+                      getNextNode(
+                        nodes,
+                        currentNode,
+                        currentPath,
+                        setNodes,
+                        setCurrentNode,
+                        setCurrentPath,
+                      );
+                    }}
+                  >
+                    Next node
+                  </button>
+                ) : (
+                  <button
+                    onClick={() =>
+                      submitCharacter(id, name, currentPath, nodes)
                     }
-                    setCurrentNode(nodes[currentNode].next || undefined);
-                  }}
-                >
-                  Next node
-                </button>
-              ) : (
-                <button
-                  onClick={() => {
-                    fetch("/api/character/create/submit", {
-                      method: "POST",
-                      body: JSON.stringify({
-                        ruleset_id: id,
-                        name: name,
-                        components: currentPath.map((node_id) => ({
-                          component_id: nodes[node_id].comp_id,
-                          values: Object.keys(nodes[node_id].comp).map(
-                            (key) => ({
-                              key: key,
-                              value: nodes[node_id].comp[key],
-                            }),
-                          ),
-                        })),
-                      }),
-                    }).then((data) =>
-                      data.json().then((res) => console.log(res)),
-                    );
-                  }}
-                >
-                  Submit character
-                </button>
-              )}
-            </li>
-          </ul>
-        )) || <p>loading...</p>}
+                  >
+                    Submit character
+                  </button>
+                )}
+              </li>
+            </ul>
+          )) || <p>loading...</p>}
+        </div>
       </div>
     </div>
   );

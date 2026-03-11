@@ -6,13 +6,7 @@ export default function Home() {
   return (
     <div style={{}} className="">
       <Text text_color={"secondary"}>test</Text>
-      <Button
-        on_click={() => {
-          console.log("dsjhsdofhsd");
-        }}
-      >
-        prout
-      </Button>
+      <Button on_click={() => {}}>prout</Button>
     </div>
   );
 }
