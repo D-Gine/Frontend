@@ -1,13 +1,12 @@
+import { API_URL } from "@/constants/api_url";
+
 export interface ruleset {
   name: string;
-  description: string;
 }
 
 export async function get_ruleset_by_id(id: string) {
-  const rulesets: { [id: string]: ruleset } = {
-    ["id_1"]: { name: "SRD5", description: "WOTC ruleset" },
-    ["id_2"]: { name: "other", description: "other desc" },
-  };
-
-  return rulesets[id];
+  const res = await fetch(`${API_URL}/api/rulesets/${id}`, { method: "GET" });
+  if (res.status == 200) {
+    return res.json();
+  }
 }

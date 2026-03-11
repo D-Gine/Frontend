@@ -1,5 +1,4 @@
 "use client";
-import Text from "@components/Text/Text";
 import { Button } from "@material-tailwind/react";
 
 export default function Home() {
