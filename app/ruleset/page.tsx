@@ -2,7 +2,7 @@ import React from "react";
 import { get_rulesets } from "./get_ruleset";
 
 export default async function RuleSetPage() {
-  const rulesets = await get_rulesets();
+  const { rulesets } = await get_rulesets();
 
   return (
     <main className="flex flex-col gap-10 items-center">
@@ -11,9 +11,7 @@ export default async function RuleSetPage() {
         {rulesets.length ? (
           rulesets.map((ruleset) => (
             <li key={ruleset.id}>
-              <a href={`/ruleset/${ruleset.id}`}>
-                {ruleset.name}: {ruleset.description}
-              </a>
+              <a href={`/ruleset/${ruleset.id}`}>{ruleset.name}</a>
             </li>
           ))
         ) : (
