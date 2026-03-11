@@ -1,11 +1,11 @@
-
-"use client"
+"use client";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Search, ShoppingBag, User } from "lucide-react";
 import Link from "next/link";
-import {Inter} from "next/font/google"
+
 import { DGineLogo } from "./Logo";
+import SearchBarHidden from "./SearchBarHidden";
 
 export function NavbarDGine() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -16,9 +16,11 @@ export function NavbarDGine() {
     { label: "Home", href: "/" },
     { label: "Catalog", href: "/" },
     { label: "My Collection", href: "#" },
-    { label: "Campaign", href: "#" },
+    { label: "Campaign", href: "/campaign" },
     { label: "About", href: "#" },
   ];
+
+  function handleNavLogin() {}
 
   return (
     <motion.nav
@@ -26,15 +28,17 @@ export function NavbarDGine() {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
       className={`
-        "sticky top-0 z-50 backdrop-blur-lg bg-background/60 border rounded-lg supports-[backdrop-filter]:bg-background/60 shadow-md",
-      
+        "sticky top-0 z-50 backdrop-blur-lg  bg-[#0a0109]  bg-background/60 border  supports-[backdrop-filter]:bg-background/60 shadow-md",
+
       `}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-16 text-[#c9a35a] font-cinzel">
           <div className="flex-shrink-0 text-xl font-bold tracking-tight">
             <span className="bg-primary bg-clip-text text-transparent">
-                <DGineLogo/>
+              <Link href={"/"}>
+                <DGineLogo />
+              </Link>
             </span>
           </div>
 
@@ -85,18 +89,11 @@ export function NavbarDGine() {
                     transition={{ duration: 0.25, ease: "easeOut" }}
                     className="rounded-full bg-accent/40"
                   >
-                    <div className="relative flex items-center">
-                      <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground w-5 h-5" />
-                      <input
-                        type="text"
-                        placeholder="Search..."
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        onBlur={() => setShowSearch(false)}
-                        autoFocus
-                        className="pl-10 pr-4 py-2 w-full bg-transparent rounded-full text-sm outline-none focus:shadow-md focus:shadow-primary/20"
-                      />
-                    </div>
+                    <SearchBarHidden
+                      searchQuery={searchQuery}
+                      setSearchQuery={setSearchQuery}
+                      setShowSearch={setShowSearch}
+                    />
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -111,26 +108,32 @@ export function NavbarDGine() {
             <motion.button
               whileTap={{ scale: 0.9 }}
               className="p-2 rounded-full hover:bg-accent transition-colors"
+              onClick={() => {
+                handleNavLogin;
+              }}
             >
               <User className="w-5 h-5" />
             </motion.button>
-            
           </div>
 
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center space-x-2">
-          <motion.button
-                  whileTap={{ scale: 0.9 }}
-                  className="p-2 rounded-full hover:bg-accent transition-colors"
-                >
-                  <ShoppingBag className="w-5 h-5" />
-                </motion.button>
+            <motion.button
+              whileTap={{ scale: 0.9 }}
+              className="p-2 rounded-full hover:bg-accent transition-colors"
+            >
+              <ShoppingBag className="w-5 h-5" />
+            </motion.button>
             <motion.button
               whileTap={{ scale: 0.9 }}
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="p-2 rounded-full hover:bg-accent transition-colors"
             >
-              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {isMenuOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
             </motion.button>
           </div>
         </div>
@@ -154,7 +157,7 @@ export function NavbarDGine() {
                 >
                   <Link
                     href={link.href}
-                    onClick={() => setIsMenuOpen(false)} 
+                    onClick={() => setIsMenuOpen(false)}
                     className="text-muted-foreground hover:text-foreground transition-colors py-2"
                   >
                     {link.label}
@@ -194,5 +197,3 @@ export function NavbarDGine() {
     </motion.nav>
   );
 }
-
-  

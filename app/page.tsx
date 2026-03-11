@@ -1,13 +1,10 @@
 "use client";
 import Text from "@components/Text/Text";
 import { Button } from "@material-tailwind/react";
-import { NavbarDGine } from "./components/Navbar";
 
 export default function Home() {
   return (
     <div style={{}} className="bg-red-300 text-gray-900">
-      <NavbarDGine/>
-
       {/* HERO */}
       <section className="relative h-[90vh] flex items-center justify-center text-center px-6">
         <div className="absolute inset-0 bg-gradient-to-b from-brandDark/90 to-brandRed/90 z-0" />
