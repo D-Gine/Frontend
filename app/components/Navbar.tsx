@@ -32,9 +32,9 @@ export function NavbarDGine() {
 
       `}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 text-[#c9a35a] font-cinzel">
-          <div className="flex-shrink-0 text-xl font-bold tracking-tight">
+          <div className="shrink-0 text-xl font-bold tracking-tight">
             <span className="bg-primary bg-clip-text text-transparent">
               <Link href={"/"}>
                 <DGineLogo />

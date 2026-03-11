@@ -178,9 +178,9 @@ export default function CampaignCard({ campaign }: CampaignCardProps) {
             style={{
               display: "flex",
               alignItems: "center",
+              justifyContent: "space-between",
               gap: "10px",
               marginBottom: "4px",
-              flexWrap: "wrap",
             }}
           >
             <h3
@@ -191,6 +191,9 @@ export default function CampaignCard({ campaign }: CampaignCardProps) {
                 fontSize: "16px",
                 fontWeight: "700",
                 letterSpacing: "0.5px",
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+                overflow: "hidden",
               }}
             >
               {campaign.title}
