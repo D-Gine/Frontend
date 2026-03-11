@@ -22,7 +22,10 @@ export default function ListSetter({
         {component[name] &&
           Array.from(Array(component[name]?.length || 0).keys()).map(
             (index: number) => (
-              <li key={`list-${name}-${index}`}>
+              <li
+                key={`list-${name}-${index}`}
+                className="animate-grow max-h-5 opacity-0"
+              >
                 {(() => {
                   const Component = TypeComponents[metadata.nested.type];
                   return (

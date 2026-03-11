@@ -5,5 +5,11 @@ export interface RulesetWithId extends ruleset {
 }
 
 export async function get_rulesets(): Promise<RulesetWithId[]> {
-  return [{ id: "id_1", name: "SRD5", description: "WOTC ruleset" }];
+  return [
+    {
+      id: "58e6aaee-5bd0-4b3d-b6db-b5c6c390b3ce",
+      name: "SRD5",
+      description: "WOTC ruleset",
+    },
+  ];
 }
