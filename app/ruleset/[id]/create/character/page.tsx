@@ -110,9 +110,10 @@ export default function CharacterCreation({
                   </button>
                 ) : (
                   <button
-                    onClick={() =>
-                      submitCharacter(id, name, currentPath, nodes)
-                    }
+                    onClick={() => {
+                      console.log(nodes);
+                      submitCharacter(id, name, currentPath, nodes);
+                    }}
                   >
                     Submit character
                   </button>

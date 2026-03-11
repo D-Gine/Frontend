@@ -1,4 +1,7 @@
 @import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
     --primary: 255 255 255;
@@ -14,12 +17,12 @@
 
 @font-face {
     font-family: "Primary";
-    src: url("/fonts/primary.otf") format("opentype");
+    src: url("../public/assets/fonts/primary.otf"), format("opentype");
 }
 
 @font-face {
     font-family: "Secondary";
-    src: url("/fonts/secondary.ttf") format("truetype");
+    src: url("../public/assets/fonts/secondary.ttf") format("truetype");
 }
 
 @keyframes grow {
