@@ -2,7 +2,7 @@ import React from "react";
 import { get_rulesets } from "./get_ruleset";
 
 export default async function RuleSetPage() {
-  const rulesets = await get_rulesets();
+  const { rulesets } = await get_rulesets();
 
   return (
     <main className="flex flex-col gap-10 items-center font-crimson relative min-h-screen overflow-hidden bg-[#0a0805]">
@@ -85,10 +85,6 @@ export default async function RuleSetPage() {
                     </h2>
 
                     <div className="h-px w-full bg-gradient-to-r from-[rgba(160,120,48,0.4)] via-[rgba(160,120,48,0.2)] to-transparent" />
-
-                    <p className="font-crimson text-sm italic leading-relaxed text-[#7a6040]">
-                      {ruleset.description}
-                    </p>
 
                     <span className="font-cinzel mt-1 self-end text-[10px] uppercase tracking-[2px] text-[#4a3820] transition-colors group-hover:text-[#8b6535]">
                       Open scroll →

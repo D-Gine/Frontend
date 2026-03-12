@@ -69,10 +69,6 @@ export default async function RuleSetPage({
             <span className="pointer-events-none absolute bottom-2 left-2 h-2 w-2 border-b border-l border-[rgba(160,120,48,0.4)]" />
             <span className="pointer-events-none absolute bottom-2 right-2 h-2 w-2 border-b border-r border-[rgba(160,120,48,0.4)]" />
 
-            <p className="font-crimson text-sm italic leading-relaxed text-[#7a6040]">
-              {ruleset.description}
-            </p>
-
             <ButtonCreate
               url={`/ruleset/${id}/create/character`}
               textInput="Create your character"

@@ -1,7 +1,10 @@
 "use client";
 import { type } from "@/components/TypedSetters/typed_setter.type";
 import { TypeComponents } from "@/components/TypedSetters/utils";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { node, nodeList } from "./node_type";
+import { submitCharacter } from "./submit";
+import { getNextNode } from "./get_next_node";
 
 const possibility: type[] = [
   {

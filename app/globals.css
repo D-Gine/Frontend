@@ -25,6 +25,13 @@
     src: url("../public/assets/fonts/secondary.ttf") format("truetype");
 }
 
+@keyframes grow {
+    to {
+        max-height: 20px;
+        opacity: 1;
+    }
+}
+
 @theme {
     --color-background-primary: rgb(var(--primary));
     --color-background-secondary: rgb(var(--secondary));
@@ -37,4 +44,6 @@
     --color-contrast: rgb(var(--contrast));
     --font-primary: "Primary", sans-serif;
     --font-secondary: "Secondary", sans-serif;
+
+    --animate-grow: grow 1s ease-in-out forwards;
 }
