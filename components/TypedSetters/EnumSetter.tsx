@@ -8,7 +8,7 @@ export default function EnumSetter({
 }: TypedSetter) {
   const { name, metadata } = type_interface;
   return (
-    <label className="flex flex-row justify-between gap-5">
+    <label className="flex flex-row justify-between gap-5 text-black">
       <p>
         select <span className="font-bold">{type_interface.name}:</span>
       </p>

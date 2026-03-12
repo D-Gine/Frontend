@@ -31,7 +31,7 @@ export default function IntSetter({
   }
 
   return (
-    <label className="flex flex-row justify-between">
+    <label className="flex flex-row justify-between text-black">
       <p>
         enter <span className="font-bold">{type_interface.name}:</span>
       </p>
