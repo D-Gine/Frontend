@@ -8,7 +8,7 @@ export function ListShower(data: value) {
       <label className="font-bold">{data.keyname}</label>
       <ul className="indent-4">
         {data.value.map((elem: any, index: number) => (
-          <li>
+          <li key={`${data.keyname}-${index}`}>
             {(() => {
               const Comp = TypeComponents[nested.type];
               return (

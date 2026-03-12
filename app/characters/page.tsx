@@ -23,7 +23,7 @@ export default function ListCharacter() {
           throw new Error("Error while trying to fetch users");
         }
         const data = await response.json();
-        setCharacters(data);
+        data;
       } catch (error) {
         console.log(error);
         console.error("Erreur:", error);

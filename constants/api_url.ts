@@ -1,1 +1,1 @@
-export const API_URL = `http://dengine-api:${process.env.API_PORT}`;
+export const API_URL = `http://${process.env.API_HOST}:${process.env.API_PORT}`;

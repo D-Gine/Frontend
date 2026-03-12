@@ -1,10 +1,13 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Button } from "@heroui/button";
 import { Plus } from "lucide-react";
+import { navigate } from "next/dist/client/components/segment-cache/navigation";
 
 interface ButtonCreateProps {
   textInput: string;
+  url: string;
 }
 
 const PlusIcon = () => (
@@ -19,15 +22,12 @@ const PlusIcon = () => (
   </svg>
 );
 
-function handleNavCreate() {
-  // naviguate throught the creation of button
-}
-
-export default function ButtonCreate({ textInput }: ButtonCreateProps) {
+export default function ButtonCreate({ textInput, url }: ButtonCreateProps) {
+  const router = useRouter();
   const [hovered, setHovered] = useState(false);
   return (
     <button
-      onClick={handleNavCreate}
+      onClick={() => router.push(url)}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
