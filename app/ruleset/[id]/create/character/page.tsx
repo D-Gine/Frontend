@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import { node, nodeList } from "./node_type";
 import { submitCharacter } from "./submit";
 import { getNextNode } from "./get_next_node";
+import { useParams, useRouter } from "next/navigation";
 
 const possibility: type[] = [
   {
@@ -53,35 +54,43 @@ const possibility: type[] = [
   },
 ];
 
-export default function CharacterCreation() {
-  const [nodes, setNodes] = useState<{
-    [key: string]: {
-      next: string | null;
-      // eslint-disable-next-line
-      comp: { [key: string]: any };
-      possibility: type[];
-    };
-  }>({
-    test: { next: "test2", comp: {}, possibility },
-    test2: {
-      next: null,
-      comp: {},
-      possibility: [
-        {
-          name: "Normal Number",
-          type: "number",
-          metadata: { number: "float" },
-        },
-      ],
-    },
-  });
+export default function CharacterCreation({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = React.use(params);
+  const router = useRouter();
 
-  const [currentNode, setCurrentNode] = useState<string | undefined>("test");
-  const [currentPath, setCurrentPath] = useState<string[]>(["test"]);
+  const [nodes, setNodes] = useState<nodeList>({});
+  const [name, setName] = useState<string>("");
+  const [currentNode, setCurrentNode] = useState<string | undefined>(undefined);
+  const [currentPath, setCurrentPath] = useState<string[]>([]);
 
   useEffect(() => {
-    if (currentNode) console.log(nodes[currentNode]);
-  }, [nodes, currentNode]);
+    if (!id) return;
+    fetch(`/api/ruleset/first_node?ruleset_id=${id}`, {
+      method: "GET",
+    }).then((data) => {
+      if (data.status != 200) {
+        alert("failed to fetch next"); // switch to good thing
+      }
+      data.json().then((res) => {
+        setNodes({
+          [res.node_id]: {
+            comp_id: res.component_id,
+            name: res.name,
+            last: res.last,
+            comp: {},
+            next: null,
+            component_types: res.component_types,
+          },
+        });
+        setCurrentNode(res.node_id);
+        setCurrentPath([res.node_id]);
+      });
+    });
+  }, [id]);
 
   // Step index for progress bar
   const stepIndex = currentNode ? currentPath.indexOf(currentNode) : 0;
@@ -284,7 +293,7 @@ export default function CharacterCreation() {
 
                 {/* Fields list */}
                 <ul className="flex flex-col gap-5 mb-8">
-                  {nodes[currentNode].possibility.map((v, i) => (
+                  {nodes[currentNode].component_types.map((v, i) => (
                     <li key={`${currentNode}-data-select-${i}-${v.name}`}>
                       {/* Field label */}
                       <div className="mb-1.5 flex items-center gap-2">
@@ -336,19 +345,17 @@ export default function CharacterCreation() {
 
                 {/* Action button */}
                 <div className="flex justify-end">
-                  {nodes[currentNode].next ? (
+                  {!nodes[currentNode].last ? (
                     <button
                       onClick={() => {
-                        if (
-                          currentPath[currentPath.length - 1] === currentNode &&
-                          nodes[currentNode].next
-                        ) {
-                          setCurrentPath([
-                            ...currentPath,
-                            nodes[currentNode].next!,
-                          ]);
-                        }
-                        setCurrentNode(nodes[currentNode].next || undefined);
+                        getNextNode(
+                          nodes,
+                          currentNode,
+                          currentPath,
+                          setNodes,
+                          setCurrentNode,
+                          setCurrentPath,
+                        );
                       }}
                       className="gold-btn font-cinzel flex items-center gap-2 rounded-sm border border-[rgba(201,163,90,0.4)] px-6 py-2.5 text-[11px] font-bold uppercase tracking-[2px] text-[#1a1208]"
                     >
@@ -357,7 +364,16 @@ export default function CharacterCreation() {
                     </button>
                   ) : (
                     <button
-                      onClick={() => console.log(nodes)}
+                      onClick={async () => {
+                        const character_id = await submitCharacter(
+                          id,
+                          "bob",
+                          currentPath,
+                          nodes,
+                        );
+
+                        router.push(`/characters/${character_id}`);
+                      }}
                       className="gold-btn font-cinzel flex items-center gap-2 rounded-sm border border-[rgba(201,163,90,0.4)] px-6 py-2.5 text-[11px] font-bold uppercase tracking-[2px] text-[#1a1208]"
                     >
                       ⚔ Forge Character

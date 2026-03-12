@@ -6,7 +6,7 @@ export default function StringSetter({
   type_interface,
 }: TypedSetter) {
   return (
-    <label className="flex flex-row justify-between">
+    <label className="flex flex-row justify-between text-black">
       <p>
         enter <span className="font-bold">{type_interface.name}:</span>
       </p>

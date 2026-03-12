@@ -3,6 +3,10 @@
 @tailwind components;
 @tailwind utilities;
 
+@utility no-scrollbar {
+    @apply [scrollbar-width:none] [&::-webkit-scrollbar]:hidden;
+}
+
 :root {
     --primary: 255 255 255;
     --secondary: 137 137 137;

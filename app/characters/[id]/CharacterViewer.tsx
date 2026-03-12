@@ -1,5 +1,5 @@
 "use client";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { character } from "../types";
 import { TypeComponents } from "@/components/TypedShower/utils";
 
@@ -9,6 +9,40 @@ export default function CharacterViewer({
   character: character;
 }) {
   const componentRefs = useRef<Record<string, HTMLLIElement | null>>({});
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [activeId, setActiveId] = useState<string>(
+    character.components[0]?.component_id ?? "",
+  );
+
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        // Find the topmost visible entry
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+
+        if (visible.length > 0) {
+          const id = visible[0].target.getAttribute("data-id");
+          if (id) setActiveId(id);
+        }
+      },
+      {
+        root: container, // observe within the scroll container
+        rootMargin: "0px 0px -90% 0px", // trigger when item enters top 40%
+        threshold: 0,
+      },
+    );
+
+    Object.entries(componentRefs.current).forEach(([, el]) => {
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, [character.components]);
 
   const scrollTo = (id: string) => {
     componentRefs.current[id]?.scrollIntoView({
@@ -79,7 +113,7 @@ export default function CharacterViewer({
       }
     `}</style>
       {/* Page wrapper */}
-      <div className="font-crimson relative min-h-screen overflow-hidden bg-[#0a0805]">
+      <div className="font-crimson relative min-h-[94.5vh]  bg-[#0a0805] overflow-y-hidden">
         {/* Ambient glows */}
         <div
           className="pointer-events-none fixed inset-0 z-0"
@@ -119,8 +153,8 @@ export default function CharacterViewer({
               Acknowledge the power of {character.name}
             </p>
           </div>
-          <div className="flex">
-            <div className="flex flex-row gap-4 ">
+          <div className="flex overflow-hidden">
+            <div className="flex flex-row gap-4">
               {/* ── Sidebar navigation ── */}
               <div
                 className="sticky top-4 self-start w-44 shrink-0 rounded-sm border border-[rgba(100,80,45,0.3)] bg-[rgba(15,10,4,0.9)] p-4"
@@ -136,7 +170,7 @@ export default function CharacterViewer({
                   Codex
                 </p>
 
-                <ul className="flex flex-col gap-1">
+                <ul className="flex flex-col gap-1 max-h-[65vh] overflow-y-scroll no-scrollbar">
                   {character.components.map((comp) => (
                     <li key={`nav-${comp.component_id}`}>
                       <button
@@ -148,9 +182,17 @@ export default function CharacterViewer({
                             block: "start",
                           })
                         }
-                        className="font-cinzel ghost-btn flex w-full items-center gap-2 rounded-sm px-2 py-1.5 text-left text-[10px] uppercase tracking-wide text-[#6b5535] transition-all duration-200 hover:text-[#c9a35a]"
+                        className={`font-cinzel ghost-btn flex w-full items-center gap-2 rounded-sm px-2 py-1.5 text-left text-[10px] uppercase tracking-wide transition-all duration-200
+                          ${
+                            activeId === comp.component_id
+                              ? "text-[#c9a35a] border-[rgba(201,163,90,0.4)] bg-[rgba(160,120,48,0.1)]" // active
+                              : "text-[#6b5535] hover:text-[#c9a35a]" // inactive
+                          }`}
                       >
-                        <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#3a2a10]" />
+                        <span
+                          className={`h-1.5 w-1.5 shrink-0 rounded-full transition-colors duration-200
+                          ${activeId === comp.component_id ? "bg-[#c9a35a]" : "bg-[#3a2a10]"}`}
+                        />
                         {comp.name}
                       </button>
                     </li>
@@ -158,11 +200,15 @@ export default function CharacterViewer({
                 </ul>
               </div>
             </div>
-            <div className="w-6/7">
+            <div
+              ref={scrollContainerRef}
+              className="w-6/7 h-[70vh] overflow-y-scroll no-scrollbar"
+            >
               <ul className="p-12 flex flex-col items-start gap-14">
                 {character.components.map((comp) => (
                   <li
                     className="flex flex-col gap-5 w-full animate-fadein"
+                    data-id={comp.component_id}
                     key={`components-${comp.component_id}`}
                     ref={(el) => {
                       componentRefs.current[comp.component_id] = el;
