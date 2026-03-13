@@ -159,7 +159,7 @@ export default function CharacterCreation({
       `}</style>
 
       {/* Page wrapper */}
-      <div className="font-crimson relative min-h-screen overflow-hidden bg-[#0a0805]">
+      <div className="font-crimson relative min-h-screen overflow-hidden bg-[#0a0805] filter">
         {/* Ambient glows */}
         <div
           className="pointer-events-none fixed inset-0 z-0"
@@ -195,14 +195,14 @@ export default function CharacterCreation({
             >
               Character Forge
             </h1>
-            <p className="font-crimson text-sm italic tracking-widest text-[#6b5535]">
+            <p className="font-crimson text-sm italic tracking-widest text-[#c9a35a]">
               Shape your legend, adventurer
             </p>
 
             {/* Progress bar */}
             <div className="mx-auto mt-6 max-w-xs">
               <div className="mb-1 flex justify-between">
-                <span className="font-cinzel text-[10px] tracking-widest text-[#4a3820]">
+                <span className="font-cinzel text-[10px] tracking-widest text-[#c9a35a]">
                   PROGRESS
                 </span>
                 <span className="font-cinzel text-[10px] tracking-widest text-[#6b5535]">
@@ -234,7 +234,7 @@ export default function CharacterCreation({
               <div className="absolute bottom-1.5 left-1.5 h-2.5 w-2.5 border-b border-l border-[rgba(160,120,48,0.35)]" />
               <div className="absolute bottom-1.5 right-1.5 h-2.5 w-2.5 border-b border-r border-[rgba(160,120,48,0.35)]" />
 
-              <p className="font-cinzel mb-3 text-[9px] uppercase tracking-[2px] text-[#4a3820]">
+              <p className="font-cinzel mb-3 text-[9px] uppercase tracking-[2px] text-[#c9a35a]">
                 Journey
               </p>
 
@@ -300,7 +300,7 @@ export default function CharacterCreation({
                         <span className="text-[rgba(160,120,48,0.5)] text-xs">
                           ◆
                         </span>
-                        <span className="font-cinzel text-[11px] uppercase tracking-widest text-[#6b5535]">
+                        <span className="font-cinzel text-[11px] uppercase tracking-widest text-[#c9a35a]">
                           {v.name}
                         </span>
                       </div>

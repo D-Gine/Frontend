@@ -149,7 +149,7 @@ export default function CharacterViewer({
             >
               {character.name}
             </h1>
-            <p className="font-crimson text-sm italic tracking-widest text-[#6b5535]">
+            <p className="font-crimson text-sm italic tracking-widest text-[#c9a35a]">
               Acknowledge the power of {character.name}
             </p>
           </div>
@@ -166,7 +166,7 @@ export default function CharacterViewer({
                 <div className="absolute bottom-1.5 left-1.5 h-2.5 w-2.5 border-b border-l border-[rgba(160,120,48,0.35)]" />
                 <div className="absolute bottom-1.5 right-1.5 h-2.5 w-2.5 border-b border-r border-[rgba(160,120,48,0.35)]" />
 
-                <p className="font-cinzel mb-3 text-[9px] uppercase tracking-[2px] text-[#4a3820]">
+                <p className="font-cinzel mb-3 text-[9px] uppercase tracking-[2px] text-[#c9a35a]">
                   Codex
                 </p>
 
@@ -253,7 +253,7 @@ export default function CharacterViewer({
                                 <span className="text-[rgba(160,120,48,0.4)] text-xs">
                                   ✦
                                 </span>
-                                <span className="font-cinzel text-[10px] uppercase tracking-widest text-[#6b5535]">
+                                <span className="font-cinzel text-[10px] uppercase tracking-widest text-[#c9a35a]">
                                   {keyname}
                                 </span>
                               </div>
