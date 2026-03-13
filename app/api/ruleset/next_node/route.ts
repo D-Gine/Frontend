@@ -1,3 +1,5 @@
+import { API_URL } from "@/constants/api_url";
+
 const possibility = [
   {
     name: "Stats",
@@ -35,17 +37,9 @@ const possibility = [
 ];
 
 export async function POST(request: Request) {
-  return new Response(
-    JSON.stringify({
-      node_id: "truc_bizzare_2",
-      component_id: "comp2",
-      name: "test 2",
-      last: true,
-      component_types: possibility,
-    }),
-    {
-      status: 200,
-      headers: { "Content-Type": "application/json" },
-    },
-  );
+  const body = await request.text();
+  return fetch(`${API_URL}/api/characters/create/nextnode`, {
+    method: "POST",
+    body: body,
+  });
 }

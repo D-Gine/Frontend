@@ -1,6 +1,7 @@
 import { Dispatch } from "react";
 
 export interface type {
+  template_id: string;
   name: string;
   type: string;
   // eslint-disable-next-line

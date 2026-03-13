@@ -12,11 +12,19 @@ export async function submitCharacter(
       ruleset_id: ruleset_id,
       name: character_name,
       components: currentPath.map((node_id) => ({
-        component_id: nodes[node_id].comp_id,
-        values: Object.keys(nodes[node_id].comp).map((key) => ({
-          key: key,
-          value: nodes[node_id].comp[key],
-        })),
+        values: Object.keys(nodes[node_id].comp).map((key) => {
+          const template_index = nodes[node_id].component_types.findIndex(
+            (elem) => {
+              return elem.name === key;
+            },
+          );
+          return {
+            template_id:
+              nodes[node_id].component_types[template_index].template_id,
+            key: key,
+            value: nodes[node_id].comp[key],
+          };
+        }),
       })),
     }),
   }).then(async (data) => {
