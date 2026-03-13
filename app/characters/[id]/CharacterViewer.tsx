@@ -32,7 +32,7 @@ export default function CharacterViewer({
       },
       {
         root: container, // observe within the scroll container
-        rootMargin: "0px 0px -90% 0px", // trigger when item enters top 40%
+        rootMargin: "0px 0px 0% 0px",
         threshold: 0,
       },
     );

@@ -1,12 +1,12 @@
 import { nodeList } from "./node_type";
 
-export function submitCharacter(
+export async function submitCharacter(
   ruleset_id: string,
   character_name: string,
   currentPath: string[],
   nodes: nodeList,
-) {
-  fetch("/api/character/create/submit", {
+): Promise<{ id: string }> {
+  return fetch("/api/character/create/submit", {
     method: "POST",
     body: JSON.stringify({
       ruleset_id: ruleset_id,
@@ -19,5 +19,11 @@ export function submitCharacter(
         })),
       })),
     }),
-  }).then((data) => data.json().then((res) => console.log(res)));
+  }).then(async (data) => {
+    if (!data.ok) {
+      return data.status;
+    }
+    const res = await data.json();
+    return res;
+  });
 }

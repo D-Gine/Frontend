@@ -365,14 +365,13 @@ export default function CharacterCreation({
                   ) : (
                     <button
                       onClick={async () => {
-                        const character_id = await submitCharacter(
+                        const res = await submitCharacter(
                           id,
                           "bob",
                           currentPath,
                           nodes,
                         );
-
-                        router.push(`/characters/${character_id}`);
+                        router.push(`/characters/${res.id}`);
                       }}
                       className="gold-btn font-cinzel flex items-center gap-2 rounded-sm border border-[rgba(201,163,90,0.4)] px-6 py-2.5 text-[11px] font-bold uppercase tracking-[2px] text-[#1a1208]"
                     >
