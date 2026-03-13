@@ -193,25 +193,24 @@ export default function CharacterCreation({
               <ul className="flex flex-col gap-1">
                 {currentPath.map((v, i) => {
                   const isActive = v === currentNode;
-                  const isPast = currentPath.indexOf(v) < stepIndex;
                   return (
                     <li key={`path_${v}`}>
                       <button
-                        onClick={() => setCurrentNode(v)}
+                        onClick={() => {
+                          setCurrentNode(v);
+                        }}
                         className={[
                           "font-cinzel flex w-full items-center gap-2 rounded-sm px-2 py-1.5 text-left text-[11px] tracking-wide transition-all duration-200",
                           isActive
                             ? "bg-[rgba(160,120,48,0.15)] text-[#c9a35a]"
-                            : isPast
-                              ? "text-[#6b5535] hover:text-[#8b7045]"
-                              : "text-[#3a2a10] cursor-not-allowed",
+                            : "text-[#6b5535] hover:text-[#8b7045]",
                         ].join(" ")}
-                        disabled={!isPast && !isActive}
+                        disabled={isActive}
                       >
                         <span
-                          className={`h-1.5 w-1.5 rounded-full shrink-0 ${isActive ? "bg-[#c9a35a] shadow-[0_0_6px_#c9a35a]" : isPast ? "bg-[#4a3820]" : "bg-[#1a1208]"}`}
+                          className={`h-1.5 w-1.5 rounded-full shrink-0 ${isActive ? "bg-[#c9a35a] shadow-[0_0_6px_#c9a35a]" : "bg-[#4a3820]"}`}
                         />
-                        {v}
+                        {nodes[v].name}
                       </button>
                     </li>
                   );
@@ -238,7 +237,7 @@ export default function CharacterCreation({
                 <div className="mb-6 flex items-center gap-3">
                   <div className="h-px flex-1 bg-gradient-to-r from-[rgba(100,80,45,0.4)] to-transparent" />
                   <h2 className="font-cinzel text-xs uppercase tracking-[3px] text-[#8b7045]">
-                    {currentNode}
+                    {nodes[currentNode].name}
                   </h2>
                   <div className="h-px flex-1 bg-gradient-to-l from-[rgba(100,80,45,0.4)] to-transparent" />
                 </div>
