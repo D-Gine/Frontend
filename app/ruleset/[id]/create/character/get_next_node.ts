@@ -13,9 +13,19 @@ export function getNextNode(
     fetch("/api/ruleset/next_node", {
       method: "POST",
       body: JSON.stringify({
-        node_id: currentNode,
-        type: "type ?",
-        value: JSON.stringify(nodes[currentNode].comp),
+        current_node_id: currentNode,
+        values: (
+          Object.keys(nodes[currentNode].comp).map((comp_key) => {
+            const template_index = nodes[currentNode].component_types.findIndex(
+              (elem) => elem.name === comp_key,
+            );
+            return {
+              key: nodes[currentNode].component_types[template_index]
+                .template_id,
+              value: nodes[currentNode].comp[comp_key],
+            };
+          }),
+        ),
       }),
     }).then((data) =>
       data.json().then((res) => {

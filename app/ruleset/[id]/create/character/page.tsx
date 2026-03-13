@@ -1,58 +1,10 @@
 "use client";
-import { type } from "@/components/TypedSetters/typed_setter.type";
 import { TypeComponents } from "@/components/TypedSetters/utils";
 import React, { useEffect, useState } from "react";
 import { node, nodeList } from "./node_type";
 import { submitCharacter } from "./submit";
 import { getNextNode } from "./get_next_node";
 import { useParams, useRouter } from "next/navigation";
-
-const possibility: type[] = [
-  {
-    name: "Normal Number",
-    type: "number",
-    metadata: { number: "float" },
-  },
-  {
-    name: "Ranged Number",
-    type: "number",
-    metadata: { number: "int", min: 0, max: 20 },
-  },
-  {
-    name: "Name",
-    type: "string",
-    metadata: { max: 10 },
-  },
-  {
-    name: "Stats",
-    type: "list",
-    metadata: {
-      nested: {
-        name: "Stat",
-        type: "number",
-        metadata: { min: 0, max: 20, type: "int" },
-      },
-      size: 4,
-    },
-  },
-  {
-    name: "Spells",
-    type: "list",
-    metadata: {
-      size: 5,
-      nested: {
-        name: "Spell",
-        type: "enum_tag",
-        metadata: {
-          possible_values: [
-            { id: "1", name: "Acid Splash" },
-            { id: "2", name: "Call Lightning" },
-          ],
-        },
-      },
-    },
-  },
-];
 
 export default function CharacterCreation({
   params,
@@ -73,7 +25,7 @@ export default function CharacterCreation({
       method: "GET",
     }).then((data) => {
       if (data.status != 200) {
-        alert("failed to fetch next"); // switch to good thing
+        alert("failed to fetch first node"); // switch to good thing
       }
       data.json().then((res) => {
         setNodes({
@@ -365,14 +317,13 @@ export default function CharacterCreation({
                   ) : (
                     <button
                       onClick={async () => {
-                        const character_id = await submitCharacter(
+                        const res = await submitCharacter(
                           id,
                           "bob",
                           currentPath,
                           nodes,
                         );
-
-                        router.push(`/characters/${character_id}`);
+                        router.push(`/characters/${res.id}`);
                       }}
                       className="gold-btn font-cinzel flex items-center gap-2 rounded-sm border border-[rgba(201,163,90,0.4)] px-6 py-2.5 text-[11px] font-bold uppercase tracking-[2px] text-[#1a1208]"
                     >
