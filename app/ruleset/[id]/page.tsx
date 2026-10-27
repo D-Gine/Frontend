@@ -74,7 +74,6 @@ export default async function RuleSetPage({
               textInput="Create your character"
             />
           </div>
-          <a href={`/ruleset/${id}/create/character`}>create character</a>
         </div>
       </div>
     </main>

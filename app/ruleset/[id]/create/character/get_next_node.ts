@@ -14,8 +14,7 @@ export function getNextNode(
       method: "POST",
       body: JSON.stringify({
         current_node_id: currentNode,
-        values: (
-          Object.keys(nodes[currentNode].comp).map((comp_key) => {
+        values: Object.keys(nodes[currentNode].comp).map((comp_key) => {
             const template_index = nodes[currentNode].component_types.findIndex(
               (elem) => elem.name === comp_key,
             );
@@ -25,7 +24,6 @@ export function getNextNode(
               value: nodes[currentNode].comp[comp_key],
             };
           }),
-        ),
       }),
     }).then((data) =>
       data.json().then((res) => {

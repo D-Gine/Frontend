@@ -6,7 +6,7 @@ export async function submitCharacter(
   currentPath: string[],
   nodes: nodeList,
 ): Promise<{ id: string }> {
-  return fetch("/api/character/create/submit", {
+  return fetch("/api/characters/create/submit", {
     method: "POST",
     body: JSON.stringify({
       ruleset_id: ruleset_id,

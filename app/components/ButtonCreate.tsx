@@ -3,7 +3,6 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@heroui/button";
 import { Plus } from "lucide-react";
-import { navigate } from "next/dist/client/components/segment-cache/navigation";
 
 interface ButtonCreateProps {
   textInput: string;

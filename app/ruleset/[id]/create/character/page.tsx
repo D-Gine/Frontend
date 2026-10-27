@@ -44,7 +44,6 @@ export default function CharacterCreation({
     });
   }, [id]);
 
-  // Step index for progress bar
   const stepIndex = currentNode ? currentPath.indexOf(currentNode) : 0;
   const totalSteps = currentPath.length;
 
@@ -110,9 +109,7 @@ export default function CharacterCreation({
         }
       `}</style>
 
-      {/* Page wrapper */}
       <div className="font-crimson relative min-h-screen overflow-hidden bg-[#0a0805] filter">
-        {/* Ambient glows */}
         <div
           className="pointer-events-none fixed inset-0 z-0"
           style={{
@@ -123,14 +120,11 @@ export default function CharacterCreation({
           }}
         />
 
-        {/* Rune watermark */}
         <div className="animate-runeglow pointer-events-none fixed left-1/2 top-1/2 z-0 -translate-x-1/2 -translate-y-1/2 select-none font-serif text-[500px] leading-none text-[rgba(160,120,48,0.03)]">
           ✦
         </div>
 
-        {/* Content */}
         <div className="relative z-10 mx-auto max-w-5xl px-6 pb-20 pt-10">
-          {/* Header */}
           <div className="animate-fadein mb-10 text-center">
             <div className="mb-3 flex items-center justify-center gap-4">
               <div className="h-px flex-1 bg-gradient-to-r from-transparent to-[rgba(160,120,48,0.5)]" />
@@ -151,7 +145,6 @@ export default function CharacterCreation({
               Shape your legend, adventurer
             </p>
 
-            {/* Progress bar */}
             <div className="mx-auto mt-6 max-w-xs">
               <div className="mb-1 flex justify-between">
                 <span className="font-cinzel text-[10px] tracking-widest text-[#c9a35a]">
@@ -170,9 +163,7 @@ export default function CharacterCreation({
             </div>
           </div>
 
-          {/* Main layout */}
           <div className="flex gap-6 items-start">
-            {/* ── Sidebar: path navigation ── */}
             <div
               className="relative w-40 shrink-0 rounded-sm border border-[rgba(100,80,45,0.3)] bg-[rgba(15,10,4,0.9)] p-4"
               style={{
@@ -180,7 +171,6 @@ export default function CharacterCreation({
                   "0 4px 24px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.02)",
               }}
             >
-              {/* Corner accents */}
               <div className="absolute left-1.5 top-1.5 h-2.5 w-2.5 border-l border-t border-[rgba(160,120,48,0.35)]" />
               <div className="absolute right-1.5 top-1.5 h-2.5 w-2.5 border-r border-t border-[rgba(160,120,48,0.35)]" />
               <div className="absolute bottom-1.5 left-1.5 h-2.5 w-2.5 border-b border-l border-[rgba(160,120,48,0.35)]" />
@@ -219,7 +209,6 @@ export default function CharacterCreation({
               </ul>
             </div>
 
-            {/* ── Main card ── */}
             {(currentNode && nodes[currentNode] && (
               <div
                 className="animate-fadein relative flex-1 rounded-sm border border-[rgba(100,80,45,0.35)] bg-[rgba(15,10,4,0.95)] p-6"
@@ -259,7 +248,7 @@ export default function CharacterCreation({
 
                       {/* Field component wrapper */}
                       <div
-                        className="rounded-sm border  text-[rgba(260,220,200,0.5)] border-[rgba(100,80,45,0.2)] bg-[rgba(10,8,5,0.5)] p-3"
+                        className="rounded-sm border text-[rgba(260,220,200,0.5)] border-[rgba(100,80,45,0.2)] bg-[rgba(10,8,5,0.5)] p-3"
                         style={{
                           textShadow:
                             "0 0 40px rgba(201,163,90,0.3), 0 2px 4px rgba(0,0,0,0.8)",
@@ -327,7 +316,7 @@ export default function CharacterCreation({
                       }}
                       className="gold-btn font-cinzel flex items-center gap-2 rounded-sm border border-[rgba(201,163,90,0.4)] px-6 py-2.5 text-[11px] font-bold uppercase tracking-[2px] text-[#1a1208]"
                     >
-                      ⚔ Forge Character
+                      Forge Character
                     </button>
                   )}
                 </div>
