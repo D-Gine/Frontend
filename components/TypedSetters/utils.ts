@@ -4,6 +4,7 @@ import StringSetter from "./StringInput";
 import { TypedSetter } from "./typed_setter.type";
 import ListSetter from "./ListSetter";
 import EnumSetter from "./EnumSetter";
+import DictionarySetter from "./DictionarySetter";
 
 export const TypeComponents: Record<
   string,
@@ -12,5 +13,6 @@ export const TypeComponents: Record<
   number: IntSetter,
   string: StringSetter,
   list: ListSetter,
+  dictionary: DictionarySetter,
   enum_tag: EnumSetter,
 };
