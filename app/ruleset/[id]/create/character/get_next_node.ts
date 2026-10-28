@@ -25,7 +25,7 @@ export async function getNextNode(
   setNodes: Dispatch<nodeList>,
   setCurrentNode: Dispatch<string | undefined>,
   setCurrentPath: Dispatch<string[]>,
-  nodeKey: string = "nodes_uuid",
+  nodeKey: string = "node_id",
 ) {
   const currentIndex = currentPath.indexOf(currentNode);
   const pathUntilCurrent = currentPath.slice(0, currentIndex + 1);

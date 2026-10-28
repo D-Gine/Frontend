@@ -15,7 +15,7 @@ export default function EnumSetter({
       <Dropdown
         current_value={component[name]}
         value_list={metadata.possible_values || []}
-        onChange={(v) => setter({ ...setter, [name]: v })}
+        onChange={(v) => setter({ ...component, [name]: v })}
       />
 
       {/* TODO make a good custom component */}

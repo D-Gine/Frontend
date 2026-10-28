@@ -11,36 +11,46 @@ export interface node {
   component_types: type[];
 }
 
+// Converts an API type ({base, restrictions, options?, item?}) into the
+// {type, metadata} shape the TypedSetters components expect.
+// eslint-disable-next-line
+function toInterface(t: any, name: string, template_id: string): type {
+  const r = t?.restrictions ?? {};
+  const metadata: { [key: string]: any } = {
+    type: t?.base === "number" ? "int" : t?.base,
+    ...r,
+  };
+
+  if (t?.base === "enum") {
+    metadata.possible_values = t.options ?? [];
+  }
+  if (t?.base === "list") {
+    if (r.max_length) metadata.size = r.max_length;
+    if (t.item) {
+      metadata.nested = toInterface(t.item, t.item.base ?? "item", t.item.id);
+    }
+  }
+
+
+  return { template_id, name, type: t?.base, metadata };
+}
+
 export function adaptNode(res: any): { id: string; node: node } | null {
   // first_node returns the node directly, get_next_node wraps it in "next"
   const data = res?.next ?? res;
   if (!data?.node_id) return null; // no next node -> end of the tree
 
   const t = data.type ?? {};
-  const r = t.restrictions ?? {};
 
   return {
     id: data.node_id,
     node: {
       comp_id: t.id,
       name: data.name ?? t.name ?? t.base ?? "Step",
-      last: false,
+      last: data.final === true,
       comp: {},
       next: null,
-      component_types: [
-        {
-          template_id: t.id,
-          name: t.name ?? t.base ?? "Value",
-          type: t.base, // "number" | "dictionary" -> TypeComponents[type]
-          metadata: {
-            // number: keep the int/float choice IntSetter expects
-            type: t.base === "number" ? "int" : t.base,
-            // spread every restriction as-is: min/max for numbers,
-            // interface.classes for dictionaries, and anything new later
-            ...r,
-          },
-        },
-      ],
+      component_types: [toInterface(t, t.name ?? t.base ?? "Value", t.id)],
     },
   };
 }

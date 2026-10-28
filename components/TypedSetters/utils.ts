@@ -14,5 +14,6 @@ export const TypeComponents: Record<
   string: StringSetter,
   list: ListSetter,
   dictionary: DictionarySetter,
+  enum: EnumSetter,
   enum_tag: EnumSetter,
 };
