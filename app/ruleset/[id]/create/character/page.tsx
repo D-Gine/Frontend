@@ -5,6 +5,7 @@ import { node, nodeList } from "./node_type";
 import { submitCharacter } from "./submit";
 import { getNextNode } from "./get_next_node";
 import { useParams, useRouter } from "next/navigation";
+import { adaptNode } from "./node_type";
 
 export default function CharacterCreation({
   params,
@@ -21,27 +22,36 @@ export default function CharacterCreation({
 
   useEffect(() => {
     if (!id) return;
-    fetch(`/api/ruleset/first_node?ruleset_id=${id}`, {
-      method: "GET",
-    }).then((data) => {
-      if (data.status != 200) {
-        alert("failed to fetch first node"); // switch to good thing
+    let cancelled = false;
+
+    (async () => {
+      try {
+        const resp = await fetch(`/api/ruleset/first_node?ruleset_id=${id}`);
+        if (!resp.ok) {
+          alert("failed to fetch first node");
+          return;
+        }
+        const res = await resp.json();
+      if (cancelled) return;
+
+      const adapted = adaptNode(res);
+      if (!adapted) {
+        alert("no first node returned");
+        return;
       }
-      data.json().then((res) => {
-        setNodes({
-          [res.node_id]: {
-            comp_id: res.component_id,
-            name: res.name,
-            last: res.last,
-            comp: {},
-            next: null,
-            component_types: res.component_types,
-          },
-        });
-        setCurrentNode(res.node_id);
-        setCurrentPath([res.node_id]);
-      });
-    });
+      const { id: nodeId, node } = adapted;
+      setNodes({ [nodeId]: node });
+      setCurrentNode(nodeId);
+      setCurrentPath([nodeId]);
+      } catch (e) {
+        console.error(e);
+        alert("failed to fetch first node");
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
   }, [id]);
 
   const stepIndex = currentNode ? currentPath.indexOf(currentNode) : 0;
@@ -254,23 +264,27 @@ export default function CharacterCreation({
                         }}
                       >
                         {(() => {
-                          const Component = TypeComponents[v.type];
-                          return (
-                            <Component
-                              component={nodes[currentNode].comp}
-                              setter={(comp) =>
-                                setNodes({
-                                  ...nodes,
-                                  [currentNode]: {
-                                    ...nodes[currentNode],
-                                    comp,
-                                  },
-                                })
-                              }
-                              type_interface={v}
-                            />
-                          );
-                        })()}
+  const Component = TypeComponents[v.type];
+  if (!Component) {
+    return (
+      <p className="text-sm italic">
+        Type non supporté : {String(v.type)}
+      </p>
+    );
+  }
+  return (
+    <Component
+      component={nodes[currentNode].comp}
+      setter={(comp) =>
+        setNodes({
+          ...nodes,
+          [currentNode]: { ...nodes[currentNode], comp },
+        })
+      }
+      type_interface={v}
+    />
+  );
+})()}
                       </div>
                     </li>
                   ))}
@@ -289,6 +303,7 @@ export default function CharacterCreation({
                     <button
                       onClick={() => {
                         getNextNode(
+                          id,
                           nodes,
                           currentNode,
                           currentPath,

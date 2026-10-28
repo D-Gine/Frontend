@@ -20,7 +20,6 @@ export default function CharacterViewer({
 
     const observer = new IntersectionObserver(
       (entries) => {
-        // Find the topmost visible entry
         const visible = entries
           .filter((e) => e.isIntersecting)
           .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
@@ -31,7 +30,7 @@ export default function CharacterViewer({
         }
       },
       {
-        root: container, // observe within the scroll container
+        root: container,
         rootMargin: "0px 0px 0% 0px",
         threshold: 0,
       },
@@ -112,9 +111,7 @@ export default function CharacterViewer({
         transition: width 0.5s ease;
       }
     `}</style>
-      {/* Page wrapper */}
       <div className="font-crimson relative min-h-[94.5vh]  bg-[#0a0805] overflow-y-hidden">
-        {/* Ambient glows */}
         <div
           className="pointer-events-none fixed inset-0 z-0"
           style={{
@@ -125,14 +122,11 @@ export default function CharacterViewer({
           }}
         />
 
-        {/* Rune watermark */}
         <div className="animate-runeglow pointer-events-none fixed left-1/2 top-1/2 z-0 -translate-x-1/2 -translate-y-1/2 select-none font-serif text-[500px] leading-none text-[rgba(160,120,48,0.03)]">
           ✦
         </div>
 
-        {/* Content */}
         <div className="relative z-10 mx-auto max-w-5xl px-6 pb-20 pt-10">
-          {/* Header */}
           <div className="animate-fadein mb-10 text-center">
             <div className="mb-3 flex items-center justify-center gap-4">
               <div className="h-px flex-1 bg-gradient-to-r from-transparent to-[rgba(160,120,48,0.5)]" />
@@ -155,12 +149,10 @@ export default function CharacterViewer({
           </div>
           <div className="flex overflow-hidden">
             <div className="flex flex-row gap-4">
-              {/* ── Sidebar navigation ── */}
               <div
                 className="sticky top-4 self-start w-44 shrink-0 rounded-sm border border-[rgba(100,80,45,0.3)] bg-[rgba(15,10,4,0.9)] p-4"
                 style={{ boxShadow: "0 4px 24px rgba(0,0,0,0.5)" }}
               >
-                {/* Corner accents */}
                 <div className="absolute left-1.5 top-1.5 h-2.5 w-2.5 border-l border-t border-[rgba(160,120,48,0.35)]" />
                 <div className="absolute right-1.5 top-1.5 h-2.5 w-2.5 border-r border-t border-[rgba(160,120,48,0.35)]" />
                 <div className="absolute bottom-1.5 left-1.5 h-2.5 w-2.5 border-b border-l border-[rgba(160,120,48,0.35)]" />
@@ -185,8 +177,8 @@ export default function CharacterViewer({
                         className={`font-cinzel ghost-btn flex w-full items-center gap-2 rounded-sm px-2 py-1.5 text-left text-[10px] uppercase tracking-wide transition-all duration-200
                           ${
                             activeId === comp.component_id
-                              ? "text-[#c9a35a] border-[rgba(201,163,90,0.4)] bg-[rgba(160,120,48,0.1)]" // active
-                              : "text-[#6b5535] hover:text-[#c9a35a]" // inactive
+                              ? "text-[#c9a35a] border-[rgba(201,163,90,0.4)] bg-[rgba(160,120,48,0.1)]"
+                              : "text-[#6b5535] hover:text-[#c9a35a]"
                           }`}
                       >
                         <span
@@ -214,7 +206,6 @@ export default function CharacterViewer({
                       componentRefs.current[comp.component_id] = el;
                     }}
                   >
-                    {/* Section header */}
                     <div className="flex items-center gap-4 w-full">
                       <div className="h-px flex-1 bg-gradient-to-r from-[rgba(100,80,45,0.5)] to-transparent" />
                       <h2
@@ -227,7 +218,6 @@ export default function CharacterViewer({
                       <div className="h-px flex-1 bg-gradient-to-l from-[rgba(100,80,45,0.5)] to-transparent" />
                     </div>
 
-                    {/* Component card */}
                     <div
                       className="relative w-full rounded-sm border border-[rgba(100,80,45,0.3)] bg-[rgba(15,10,4,0.9)] p-6"
                       style={{
@@ -235,7 +225,6 @@ export default function CharacterViewer({
                           "0 4px 24px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.02)",
                       }}
                     >
-                      {/* Corner accents */}
                       <div className="absolute left-2 top-2 h-2.5 w-2.5 border-l border-t border-[rgba(160,120,48,0.35)]" />
                       <div className="absolute right-2 top-2 h-2.5 w-2.5 border-r border-t border-[rgba(160,120,48,0.35)]" />
                       <div className="absolute bottom-2 left-2 h-2.5 w-2.5 border-b border-l border-[rgba(160,120,48,0.35)]" />
@@ -248,7 +237,6 @@ export default function CharacterViewer({
                               key={`component-${comp.component_id}-value-${keyname}`}
                               className="flex flex-row items-start gap-5 border-b border-[rgba(100,80,45,0.12)] pb-4 last:border-0 last:pb-0"
                             >
-                              {/* Field label */}
                               <div className="flex items-center gap-2 w-36 shrink-0 pt-0.5">
                                 <span className="text-[rgba(160,120,48,0.4)] text-xs">
                                   ✦
@@ -258,7 +246,6 @@ export default function CharacterViewer({
                                 </span>
                               </div>
 
-                              {/* Field value */}
                               <div className="flex-1 font-crimson text-[#9a8060]">
                                 {(() => {
                                   const Comp = TypeComponents[type];

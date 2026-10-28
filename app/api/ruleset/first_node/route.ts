@@ -6,9 +6,10 @@ export async function GET(request: Request) {
   const ruleset_id = searchParams.get("ruleset_id");
 
   return fetch(
-    `${API_URL}/api/characters/create/firstnode?ruleset_id=${ruleset_id}`,
+    `${API_URL}/api/nodes/${ruleset_id}/first_node`,
     {
       method: "GET",
     },
   );
 }
+
